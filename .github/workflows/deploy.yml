@@ -10,6 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
       - run: docker build -t arjunlatiwala/next-js-app:latest .
-      - run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
       - run: docker push arjunlatiwala/next-js-app:latest
